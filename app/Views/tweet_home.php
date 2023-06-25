@@ -64,9 +64,15 @@
                 <a class="btn btn-info btn-sm" 
 										style="padding: 0.25rem 0.5rem; font-size: 0.7rem;" 
 										href="<?=base_url('/add')?>">Tweet Baru</a>
+
+                <a class="btn btn-warning btn-sm" 
+										style="padding: 0.25rem 0.5rem; font-size: 0.7rem;" 
+										href="<?=base_url('/edit_profile')?>">Edit Profile</a>
+                                        
                 <a class="btn btn-danger btn-sm" 
 										style="padding: 0.25rem 0.5rem; font-size: 0.7rem;" 
 										href="<?=base_url('/logout')?>">Logout</a>
+
             </p>
         </div>
         </div>

@@ -64,4 +64,32 @@ class Auth extends BaseController
         $sess->setFlashdata('logout', 'success');
         return redirect()->to('/auth');
     }
+
+    public function EditProfileForm()
+    {
+        $userModel = new UserModel();
+        $sess = session();
+        $user = $userModel->find($sess->get('currentuser')['userid']);
+        $data['user'] = $user;
+        return view('auth_edit_profile', $data);
+    }
+
+    public function EditProfile()
+    {
+        $userModel = new UserModel();
+        $sess = session();
+        $user = $userModel->find($sess->get('currentuser')['userid']);
+        $user->fullname = $this->request->getPost('fullname');
+        $user->username = $this->request->getPost('username');
+
+        if($this->validate($userModel->editRules)){
+            $userModel->save($user);
+            $sess->setFlashdata('edit_profile', 'success');
+            return redirect()->to('/');
+        } else {
+            $data['validation'] = $this->validator;
+            $data['user'] = $user;
+            return view('auth_edit_profile', $data);
+        }
+    }
 }

@@ -51,6 +51,10 @@ $routes->post('/add', 'Tweet::addTweet', ['filter'=>'cekLogin']);
 $routes->get('/delete/(:num)', 'Tweet::delTweet/$1', ['filter'=>'cekLogin']);
 $routes->post('/edit', 'Tweet::editTweet', ['filter'=>'cekLogin']);
 
+// Fitur Tambahan
+$routes->get('/edit_profile', 'Auth::EditProfileForm', ['filter'=>'cekLogin']);
+$routes->post('/edit_profile', 'Auth::EditProfile', ['filter'=>'cekLogin']);
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
