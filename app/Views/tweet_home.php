@@ -105,10 +105,16 @@
                     <a href="<?=base_url('/category//'.$tweet->category)?>">#<?=$tweet->category?></a>
                     <small><?= $tweet->getCreatedAt() ?></small>
                     </span>
+                    <?php 
+                    $sess = session();
+                    $curUser = $sess->get('currentuser');
+                    if($curUser['userid'] == $tweet->user_id): 
+                    ?>
                     <span>
                         <a href="<?=base_url('/edit//'.$tweet->id)?>" class="btn btn-sm btn-warning">E</a>
                         <a href="<?=base_url('/delete//'.$tweet->id)?>" class="btn btn-sm btn-danger">D</a>
                     </span>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
