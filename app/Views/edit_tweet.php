@@ -10,15 +10,14 @@
         </div>
         <div class="card-body">
             <?= form_open('/edit') ?>
-            <?= form_hidden('id', 1) ?>
+            <?= form_hidden('id', $tweet->id) ?>
             <div class="mb-3">
                 <label for="content" class="form-label">Tweet</label>
-                <textarea name="content" id="tweet" 
-										class="form-control"><?="Konten tweet yang akan diedit."?></textarea>
+                <textarea name="content" id="tweet" class="form-control"><?=$tweet->content?></textarea>
             </div>
             <div class="mb-3">
                 <label for="category" class="form-label">Kategori</label>
-                <?=form_dropdown('category', $categories, "pendidikan", 'class="form-select"')?>
+                <?=form_dropdown('category', $categories, $tweet->category, 'class="form-select"')?>
             </div>
             <div class="mb-3">
                 <input type="submit" class="btn btn-primary" value="Edit Tweet">

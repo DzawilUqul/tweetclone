@@ -1,6 +1,8 @@
 <?= $this->extend('components/layout') ?>
 
 <?= $this->section('content') ?>
+<!-- Awal tambahan bagian notifikasi -->
+
 <div class="row" style="margin: 30px 0px;">
     <?php
         $sess = session();
@@ -11,6 +13,40 @@
                 </div>';
         }
     ?>
+    <?php
+        // ... koding notifikasi tweet baru yang telah dibuat sebelumnya
+            
+            $editstatus = $sess->get('edittweet');
+        if($editstatus == 'success'){
+            echo '<div class="alert alert-success" role="alert">
+                Tweet berhasil diedit / diperbaharui.
+                </div>';
+        }
+        if($editstatus == 'error'){
+            echo '<div class="alert alert-danger" role="alert">
+                Kesalahan pengeditan / pembaruan tweet.
+                </div>';
+        }
+    ?>
+
+    <?php
+        // ... koding notifikasi tweet baru dan edit yang dibuat sebelumnya
+            
+        $delstatus = $sess->get('deltweet');
+        if($delstatus == 'success')
+        {
+            echo '<div class="alert alert-warning" role="alert">
+                Tweet berhasil dihapus.
+                </div>';
+        }
+        if($delstatus == 'error')
+        {
+            echo '<div class="alert alert-danger" role="alert">
+                Kesalahan penghapusan tweet.
+                </div>';
+        }
+    ?>
+
     <!-- Akhir tambahan bagian notifikasi -->
     <div class="col-md-4">
     <div class="card mb-3" style="max-width: 540px;">

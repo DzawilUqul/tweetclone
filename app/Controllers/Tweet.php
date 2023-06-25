@@ -52,7 +52,15 @@ class Tweet extends BaseController
 
     public function editForm($tweet_id)
     {
+        $tweet = $this->tweetMdl->find($tweet_id);
+        if($tweet->user_id != $this->sess->get('currentuser')['userid'])
+        {
+            $this->sess->setFlashdata('edittweet', 'error');
+            return redirect()->to('/');
+        }
+        
         $data['categories'] = $this->categories;
+        $data['tweet'] = $tweet;
         return view('edit_tweet', $data);
     }
 
@@ -65,11 +73,26 @@ class Tweet extends BaseController
 
     public function delTweet($tweet_id)
     {
+        $result = $this->tweetMdl->delTweet($this->sess->get('currentuser')['userid'], $tweet_id);
+        if($result)
+        {
+            $this->sess->setFlashdata('deltweet', 'success');
+        } else 
+        {
+            $this->sess->setFlashdata('deltweet', 'error');
+        }
         return redirect()->to('/');
     }
 
     public function editTweet()
     {
+        $result = $this->tweetMdl->editTweet($this->request->getPost());
+        if($result){
+            $this->sess->setFlashdata('edittweet', 'success');
+        } else {
+            $this->sess->setFlashdata('edittweet', 'error');
+        }
+
         return redirect()->to('/');
     }
 }
