@@ -80,16 +80,39 @@ class Auth extends BaseController
         $sess = session();
         $user = $userModel->find($sess->get('currentuser')['userid']);
         $user->fullname = $this->request->getPost('fullname');
-        $user->username = $this->request->getPost('username');
 
-        if($this->validate($userModel->editRules)){
-            $userModel->save($user);
-            $sess->setFlashdata('edit_profile', 'success');
-            return redirect()->to('/');
-        } else {
-            $data['validation'] = $this->validator;
-            $data['user'] = $user;
-            return view('auth_edit_profile', $data);
+        if($this->request->getPost('password') != '' || $this->request->getPost('confirmation') != '')
+        {
+            $user->password = $this->request->getPost('password');
+            $user->confirmation = $this->request->getPost('confirmation');
+
+            if($this->validate($userModel->editRules))
+            {
+                $userModel->save($user);
+                $sess->setFlashdata('edit_profile', 'success');
+                return redirect()->to('/');
+            } 
+            else 
+            {
+                $data['validation'] = $this->validator;
+                $data['user'] = $user;
+                return view('auth_edit_profile', $data);
+            }
+        } 
+        else
+        {
+            if($this->validate($userModel->editRulesWithoutPassword))
+            {
+                $userModel->update($user->id, ['fullname' => $user->fullname]);
+                $sess->setFlashdata('edit_profile', 'success');
+                return redirect()->to('/');
+            }
+            else 
+            {
+                $data['validation'] = $this->validator;
+                $data['user'] = $user;
+                return view('auth_edit_profile', $data);
+            }
         }
     }
 }

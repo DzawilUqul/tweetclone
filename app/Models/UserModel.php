@@ -20,7 +20,12 @@ class UserModel extends Model
     ];
 
     public $editRules = [
-        'username' => 'required|alpha_numeric|min_length[5]',
+        'fullname' => 'required|min_length[5]',
+        'password' => 'required|min_length[8]',
+        'confirmation' => 'required_with[password]|matches[password]',
+    ];
+
+    public $editRulesWithoutPassword = [
         'fullname' => 'required|min_length[5]',
     ];
 

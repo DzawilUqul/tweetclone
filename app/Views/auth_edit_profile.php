@@ -11,13 +11,19 @@
         </div>
         <div class="card-body">
             <?= form_open('/edit_profile') ?>
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input type="username" class="form-control" name="username" 
                     value="<?= $user->username ?>" id="username" placeholder="username">
                 <div style="color: red; font-size: small;"> <?=$validation->getError('username')?> </div>
+            </div> -->
+            <div class="mb-3">
+                <label for="fullname" class="form-label">Nama Lengkap</label>
+                <input type="text" class="form-control" name="fullname" 
+                    value="<?= $user->fullname ?>" id="fullname" placeholder="Nama Lengkap">
+                <div style="color: red; font-size: small;"> <?=$validation->getError('fullname')?> </div>
             </div>
-            <!-- <div class="mb-3">
+            <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" name="password" id="password" placeholder="password">
                 <div style="color: red; font-size: small;"> <?=$validation->getError('password')?> </div>
@@ -26,12 +32,6 @@
                 <label for="confirmation" class="form-label">Konfirmasi Password</label>
                 <input type="password" class="form-control" name="confirmation" id="confirmation" placeholder="password">
                 <div style="color: red; font-size: small;"> <?=$validation->getError('confirmation')?> </div>
-            </div> -->
-            <div class="mb-3">
-                <label for="fullname" class="form-label">Nama Lengkap</label>
-                <input type="text" class="form-control" name="fullname" 
-                    value="<?= $user->fullname ?>" id="fullname" placeholder="Nama Lengkap">
-                <div style="color: red; font-size: small;"> <?=$validation->getError('fullname')?> </div>
             </div>
             <div class="mb-3">
                 <input type="submit" class="btn btn-primary" value="Edit Profile">
