@@ -47,6 +47,22 @@
         }
     ?>
 
+    <?php 
+        $editstatus = $sess->get('edit_profile');
+        if($editstatus == 'success')
+        {
+            echo '<div class="alert alert-success" role="alert">
+                Profile berhasil diedit / diperbaharui.
+                </div>';
+        }
+        if($editstatus == 'error')
+        {
+            echo '<div class="alert alert-danger" role="alert">
+                Kesalahan pengeditan / pembaruan profile.
+                </div>';
+        }
+    ?>
+
     <!-- Akhir tambahan bagian notifikasi -->
     <div class="col-md-4">
     <div class="card mb-3" style="max-width: 540px;">
