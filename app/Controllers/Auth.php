@@ -115,4 +115,44 @@ class Auth extends BaseController
             }
         }
     }
+
+    public function UploadProfileImageForm()
+    {
+        $userModel = new UserModel();
+        $sess = session();
+        $user = $userModel->find($sess->get('currentuser')['userid']);
+        $data['user'] = $user;
+        return view('upload_profile_image', $data);
+    }
+
+    public function UploadProfileImage()
+    {
+        $userModel = new UserModel();
+        $sess = session();
+        $user = $userModel->find($sess->get('currentuser')['userid']);
+        $user->profile_image = $this->request->getFile('profile_image');
+        
+        // Check if user submit nothing
+        if($user->profile_image != "")
+        {
+            // Convert image into base64
+            $path = $user->profile_image->getTempName();
+            $type = pathinfo($path, PATHINFO_EXTENSION);
+            $content = file_get_contents($path);
+            $image = 'data:image/' . $type . ';base64,' . base64_encode($content);
+        }
+
+        if($this->validate($userModel->uploadProfileImageRules))
+        {
+            $userModel->update($user->id, ['profile_image' => $image]);
+            $sess->setFlashdata('edit_profile', 'success');
+            return redirect()->to('/');
+        }
+        else 
+        {
+            $data['validation'] = $this->validator;
+            $data['user'] = $user;
+            return view('upload_profile_image', $data);
+        }
+    }
 }

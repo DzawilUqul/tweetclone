@@ -68,7 +68,18 @@
     <div class="card mb-3" style="max-width: 540px;">
     <div class="row g-0">
         <div class="col-md-4">
-        <?= img(['src'=>'images/no-avatar.jpg', 'class'=>'img-fluid rounded-start']) ?>
+            <a href="<?= base_url("upload_profile_image") ?>">
+                <?php
+                    if($profile->profile_image != null)
+                    {
+                        echo img(['src'=>$profile->profile_image, 'class'=>'img-fluid rounded-start']);
+                    }
+                    else
+                    {
+                        echo img(['src'=>'images/no-avatar.jpg', 'class'=>'img-fluid rounded-start']);
+                    }
+                ?>
+            </a>
         </div>
         <div class="col-md-8">
         <div class="card-body">
@@ -115,7 +126,16 @@
         <div class="row" 
 						style="border-top: 1px solid #eee; padding-top: 10px; margin-bottom: 10px;">
             <div class="col-sm-2">
-                <?= img(['src'=>'images/no-avatar.jpg', 'class'=>'img-thumbnail']) ?>
+                <?php
+                    if($tweet->profile_image != null)
+                    {
+                        echo img(['src'=>$tweet->profile_image, 'class'=>'img-thumbnail']);
+                    }
+                    else
+                    {
+                        echo img(['src'=>'images/no-avatar.jpg', 'class'=>'img-thumbnail']);
+                    }
+                ?>
             </div>
             <div class="col-sm-10">
                 <h4><?=$tweet->fullname?> <small>@<?=$tweet->username?></small></h4>

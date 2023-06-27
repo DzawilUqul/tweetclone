@@ -24,6 +24,11 @@ class Createusers extends Migration
                     'type' => 'VARCHAR',
                     'constraint' => '100',
                 ],
+                'profile_image' => [
+                    'type' => 'LONGBLOB',
+                    'null' => true,
+                    'media-type' => 'image/jpeg'
+                ],
             ]
         );
         $this->forge->addKey('id', true);

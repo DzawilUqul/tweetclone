@@ -8,7 +8,7 @@ class UserModel extends Model
 {
     protected $table = 'users';
     protected $allowedFields = [
-        'username', 'password', 'fullname'
+        'username', 'password', 'fullname','profile_image'
     ];
 
     protected $returnType = \App\Entities\User::class;
@@ -27,6 +27,10 @@ class UserModel extends Model
 
     public $editRulesWithoutPassword = [
         'fullname' => 'required|min_length[5]',
+    ];
+
+    public $uploadProfileImageRules = [
+        'profile_image' => 'uploaded[profile_image]|max_size[profile_image,1024]|is_image[profile_image]|mime_in[profile_image,image/jpg,image/jpeg,image/png]'
     ];
 
     public $loginRules = [

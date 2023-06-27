@@ -51,9 +51,15 @@ $routes->post('/add', 'Tweet::addTweet', ['filter'=>'cekLogin']);
 $routes->get('/delete/(:num)', 'Tweet::delTweet/$1', ['filter'=>'cekLogin']);
 $routes->post('/edit', 'Tweet::editTweet', ['filter'=>'cekLogin']);
 
-// Fitur Tambahan
+// ===== Fitur Tambahan =====
+// 1. Edit Profile
 $routes->get('/edit_profile', 'Auth::EditProfileForm', ['filter'=>'cekLogin']);
 $routes->post('/edit_profile', 'Auth::EditProfile', ['filter'=>'cekLogin']);
+
+// 2. Upload Profile Image
+$routes->get('/upload_profile_image', 'Auth::UploadProfileImageForm', ['filter'=>'cekLogin']);
+$routes->post('/upload_profile_image', 'Auth::UploadProfileImage', ['filter'=>'cekLogin']);
+
 
 /*
  * --------------------------------------------------------------------

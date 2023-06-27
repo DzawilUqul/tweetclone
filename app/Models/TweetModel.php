@@ -60,7 +60,7 @@ class TweetModel extends Model
 
     public function getLatest()
     {
-        $query = $this->select('tweets.id, user_id, username, fullname, content, category, created_at')
+        $query = $this->select('tweets.id, user_id, username, fullname, content, category, created_at, profile_image')
                     ->orderBy('created_at', 'desc')
                     ->join('users', 'users.id = tweets.user_id');
         return $query->findAll();
