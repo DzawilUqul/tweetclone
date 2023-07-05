@@ -139,13 +139,20 @@
             </div>
             <div class="col-sm-10">
                 <h4><?=$tweet->fullname?> <small>@<?=$tweet->username?></small></h4>
+                <?php
+                    if($tweet->tweet_image != null)
+                    {
+                        $image = $tweet->tweet_image;
+                        echo img(['src' => $image, 'height' => '200px', 'style' => 'margin: 0 auto;']);
+                    }
+                ?>
                 <div class="mb-3">
                     <?=$tweet->content?>
                 </div>
                 <div class="container-fluid">
                     <span>
-                    <a href="<?=base_url('/category//'.$tweet->category)?>">#<?=$tweet->category?></a>
-                    <small><?= $tweet->getCreatedAt() ?></small>
+                        <a href="<?=base_url('/category//'.$tweet->category)?>">#<?=$tweet->category?></a>
+                        <small><?= $tweet->getCreatedAt() ?></small>
                     </span>
                     <?php 
                     $sess = session();

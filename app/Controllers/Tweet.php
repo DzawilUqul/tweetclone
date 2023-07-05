@@ -47,6 +47,7 @@ class Tweet extends BaseController
     public function addForm()
     {
         $data['categories'] = $this->categories;
+        $data['validation'] = null;
         return view('tweet_add', $data);
     }
 
@@ -61,14 +62,42 @@ class Tweet extends BaseController
         
         $data['categories'] = $this->categories;
         $data['tweet'] = $tweet;
+        $data['image'] = $tweet->tweet_image;
         return view('edit_tweet', $data);
     }
 
     public function addTweet()
     {
-        $this->tweetMdl->newTweet($this->sess->get('currentuser'), $this->request->getPost());
-        $this->sess->setFlashdata('addtweet', 'success');
-        return redirect()->to('/');
+        $tweet_image = $this->request->getFile('tweet_image');
+        if($tweet_image != "")
+        {
+            // Convert image into base64
+            $path = $tweet_image->getTempName();
+            $type = pathinfo($path, PATHINFO_EXTENSION);
+            $content = file_get_contents($path);
+            $image = 'data:image/' . $type . ';base64,' . base64_encode($content);
+            
+            if($this->validate($this->tweetMdl->tweetImageRules))
+            {
+                $this->tweetMdl->newTweet($this->sess->get('currentuser'), $this->request->getPost(),$image);
+                $this->sess->setFlashdata('addtweet', 'success');
+                return redirect()->to('/');
+            }
+            else 
+            {
+                $data['validation'] = $this->validator;
+                $data['categories'] = $this->categories;
+                return view('tweet_add', $data);
+            }
+        }
+        else
+        {
+            $image = null;
+            $this->tweetMdl->newTweet($this->sess->get('currentuser'), $this->request->getPost(),$image);
+            $this->sess->setFlashdata('addtweet', 'success');
+            return redirect()->to('/');
+        }
+        
     }
 
     public function delTweet($tweet_id)
@@ -86,13 +115,44 @@ class Tweet extends BaseController
 
     public function editTweet()
     {
-        $result = $this->tweetMdl->editTweet($this->request->getPost());
-        if($result){
-            $this->sess->setFlashdata('edittweet', 'success');
-        } else {
-            $this->sess->setFlashdata('edittweet', 'error');
-        }
+        $tweet_image = $this->request->getFile('tweet_image');
+        if($tweet_image != "")
+        {
+            // Convert image into base64
+            $path = $tweet_image->getTempName();
+            $type = pathinfo($path, PATHINFO_EXTENSION);
+            $content = file_get_contents($path);
+            $image = 'data:image/' . $type . ';base64,' . base64_encode($content);
+            
+            if($this->validate($this->tweetMdl->tweetImageRules))
+            {
+                $result = $this->tweetMdl->editTweet($this->request->getPost(),$image);
+                if($result){
+                    $this->sess->setFlashdata('edittweet', 'success');
+                } else {
+                    $this->sess->setFlashdata('edittweet', 'error');
+                }
 
-        return redirect()->to('/');
+                return redirect()->to('/');
+            }
+            else 
+            {
+                $data['validation'] = $this->validator;
+                $data['categories'] = $this->categories;
+                return view('edit_tweet', $data);
+            }
+        }
+        else
+        {
+            $image = null;
+            $result = $this->tweetMdl->editTweet($this->request->getPost(),$image);
+                if($result){
+                    $this->sess->setFlashdata('edittweet', 'success');
+                } else {
+                    $this->sess->setFlashdata('edittweet', 'error');
+                }
+
+                return redirect()->to('/');
+        }
     }
 }

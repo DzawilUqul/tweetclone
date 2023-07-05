@@ -27,7 +27,6 @@ class Createusers extends Migration
                 'profile_image' => [
                     'type' => 'LONGBLOB',
                     'null' => true,
-                    'media-type' => 'image/jpeg'
                 ],
             ]
         );

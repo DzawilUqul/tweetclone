@@ -27,6 +27,10 @@ class Createtweets extends Migration
                 'type' => 'TIMESTAMP',
                 'default' => new RawSql('CURRENT_TIMESTAMP')
             ],
+            'tweet_image' => [
+                'type' => 'LONGBLOB',
+                'null' => true,
+            ],
         ]);
 
         $this->forge->addPrimaryKey('id', 'tweet_id');

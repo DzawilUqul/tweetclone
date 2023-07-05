@@ -18,7 +18,7 @@
     <div class="col-md-6 offset-md-3 align-self-center">
     <div class="card">
         <div class="card-header text-light bg-dark">
-            <strong>Form Edit Profile</strong>
+            <strong>Upload Profile Photo</strong>
         </div>
         
         
@@ -35,12 +35,6 @@
             </div>
             <div style="color: red; font-size: small;"><?=$validation->getError('profile_image')?></div>
             
-            <!-- <div class="mb-3">
-                <label for="fullname" class="form-label">Nama Lengkap</label>
-                <input type="text" class="form-control" name="fullname" 
-                    value="<?= $user->fullname ?>" id="fullname" placeholder="Nama Lengkap">
-                <div style="color: red; font-size: small;"> <?=$validation->getError('fullname')?> </div>
-            </div> -->
             <div class="mb-3">
                 <input type="submit" class="btn btn-primary" value="Edit Image">
                 <a href="<?=previous_url()?>" class="btn btn-warning">Kembali</a>
